@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oochard Guard</title>
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Main Content Section */
+        #main-content {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Left Content Section */
+        .left-content {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .left-content h1 {
+            font-size: 36px;
+            color: #4f772d;
+        }
+
+        .left-content p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #2f4f31;
+        }
+
+        /* Right Section */
+        .right-content {
+            flex: 1;
+            background-image: url('https://img.freepik.com/free-photo/female-researcher_1150-5878.jpg'); /* Replace with your background image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            width: 450px;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #2f4f31;
+        }
+
+        .form-container label {
+            font-size: 14px;
+            color: #2f4f31;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Show Password Section */
+        .show-password {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .show-password label {
+            margin: 0;
+            margin-right: 5px;
+        }
+
+        .show-password input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2f4f31;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #3a6b3f;
+        }
+
+        .form-container p {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* Footer Section */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2f4f31;
+            color: #fff;
+        }
+
+        footer .footer-links {
+            margin-top: 10px;
+        }
+
+        footer .footer-links a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        footer .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hidden by default */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content Section -->
+    <section id="main-content">
+        <div class="left-content">
+            <h1>Welcome to Oochard Guard</h1>
+            <p>Your agricultural innovation partner. <b>"Oochard Guard"</b> is a protective measure designed to shield young trees or plants in an orchard from various threats such as pests, harsh weather, and mechanical damage.</p>
+        </div>
+        
+        <div class="right-content">
+            <div class="form-container" id="loginFormContainer">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <label for="loginEmail">Email</label>
+                    <input id="loginEmail" name="email" type="email" required>
+                    
+                    <label for="loginPassword">Password</label>
+                    <input id="loginPassword" name="password" type="password" required>
+                    
+                    <div class="show-password">
+                        <label for="showLoginPassword">Show Password</label>
+                        <input type="checkbox" id="showLoginPassword"> 
+                    </div>
+                    
+                    <button type="submit">Log in</button>
+                    <p>Don't have an account? <a href="#" id="showSignUpForm">Sign up</a></p>
+                </form>
+            </div>
+
+            <div class="form-container hidden" id="signUpFormContainer">
+                <h2>Sign Up</h2>
+                <form id="signUpForm">
+                    <label for="signupEmail">Email</label>
+                    <input id="signupEmail" name="email" type="email" required>
+                    
+                    <label for="signupPassword">Password</label>
+                    <input id="signupPassword" name="password" type="password" required>
+                    
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input id="confirmPassword" name="confirmPassword" type="password" required>
+                    
+                    <div class="show-password">
+                        <label for="showSignUpPassword">Show Password</label>
+                        <input type="checkbox" id="showSignUpPassword">
+                    </div>
+                    
+                    <button type="submit">Sign Up</button>
+                    <p>Already have an account? <a href="#" id="showLoginForm">Log in</a></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Oochard Guard. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#about-us" class="footer-link">About Us</a>
+            <a href="#contact" class="footer-link">Contact</a>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Form Handling
+        const loginForm = document.getElementById('loginForm');
+        const signUpForm = document.getElementById('signUpForm');
+        const loginFormContainer = document.getElementById('loginFormContainer');
+        const signUpFormContainer = document.getElementById('signUpFormContainer');
+        const showSignUpFormLink = document.getElementById('showSignUpForm');
+        const showLoginFormLink = document.getElementById('showLoginForm');
+        
+        // Show Sign-Up Form
+        showSignUpFormLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginFormContainer.classList.add('hidden');
+            signUpFormContainer.classList.remove('hidden');
+        });
+
+        // Show Login Form
+        showLoginFormLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            signUpFormContainer.classList.add('hidden');
+            loginFormContainer.classList.remove('hidden');
+        });
+
+        // Login Form Validation
+        loginForm.addEventListener('submit', function(event) {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                alert('Please fill in both fields.');
+                event.preventDefault();
+            } else if (!validateEmail(email)) {
+                alert('Please enter a valid email address.');
+                event.preventDefault();
+            } else {
+                // Simulate successful login
+                console.log('Login form submitted with:', { email, password });
+                alert('Login successful!');
+                window.location.href = 'home.html'; // Redirect to the dashboard page
+                event.preventDefault();
+            }
+        });
+
+        // Sign-Up Form Validation
+        signUpForm.addEventListener('submit', function(event) {
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!email || !password || !confirmPassword) {
+                alert('Please fill in all fields.');
+                event.preventDefault();
+            } else if (!validateEmail(email)) {
+                alert('Please enter a valid email address.');
+                event.preventDefault();
+            } else if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                event.preventDefault();
+            } else {
+                // Simulate successful sign-up
+                console.log('Sign-up form submitted with:', { email, password });
+                alert('Sign-up successful! Please log in.');
+                loginFormContainer.classList.remove('hidden');
+                signUpFormContainer.classList.add('hidden');
+                event.preventDefault();
+            }
+        });
+
+        // Show Password Toggle
+        document.getElementById('showLoginPassword').addEventListener('change', function() {
+            document.getElementById('loginPassword').type = this.checked ? 'text' : 'password';
+            
+        });
+
+        document.getElementById('showSignUpPassword').addEventListener('change', function() {
+            document.getElementById('signupPassword').type = this.checked ? 'text' : 'password';
+            document.getElementById('confirmPassword').type = this.checked ? 'text' : 'password';
+            
+        });
+
+        // Email Validation Function
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    </script>
+</body>
+</html>

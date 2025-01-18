@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Plantation Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: #f5f8fa;
+            color: #333;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            flex-grow: 1;
+            height: 100%;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 275px;
+            background-color: #31572c;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.15);
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            margin: 0;
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 28px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            padding: 14px;
+            border-radius: 8px;
+            background-color: #4f772d;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar ul li a:hover {
+            background-color: #6b8f47;
+            transform: scale(1.05);
+        }
+        .sidebar ul li a i {
+            background-color: #00251a;
+            padding: 12px;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .sidebar ul li a i svg {
+            width: 24px;
+            height: 24px;
+            color: #fff;
+        }
+
+        /* Main content styles */
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Profile and Edit Profile Sections */
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+
+        /* Profile Section Styles */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+border-radius: 10px;
+            background-color: #d4e2d4;
+        }
+        .profile-header img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        .profile-header h1 {
+            font-size: 30px;
+            margin-top: 0;
+            color: #4f772d;
+        }
+        .profile-details {
+            background-color: #d4e2d4; /* White background for contrast */
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .profile-details h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #4f772d;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 95%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #fff; /* White background for text fields */
+            box-shadow: none; /* Remove box-shadow */
+            transition: border-color 0.3s ease;
+ border-color: #b0c4b1;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #4f772d;
+            outline: none;
+ border-color: #b0c4b1;
+        }
+        .form-group input[readonly],
+        .form-group textarea[readonly] {
+            background-color: #f7f7f7;
+            border-color: #e0e0e0;
+            color: #666;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #4f772d;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            max-width: 180px;
+            margin: 0 auto;
+            display: block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .button:hover {
+            background-color: #6b8f47;
+            transform: scale(1.05);
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .button-group .button {
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        /* Edit Profile Section Styles */
+        .profile-header.edit {
+            background-color: #d4e2d4; /* Light green background for edit section */
+        }
+        .profile-details.edit {
+            background-color: #d4e2d4;
+ /* Slightly lighter green */
+        }
+        .form-group input,
+        .form-group textarea {
+            border-color: #b0c4b1; /* Slightly darker border */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar section -->
+        <div class="sidebar">
+            <h2>Dashboard</h2>
+<nav>
+            <ul>
+                 <li><a href="home.html"><i><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zm0 13v9m7-16.8v10.4L12 22l-7-4.4V5.2"/></svg></i> Home</a></li>
+                <li><a href="profile.html"><i><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></i> Profile</a></li>
+ <li><a href="analyze.html"><i><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2 2 4-4 4 4 2-2m-2-7v14"/></svg></i> Analyze</a></li>
+ <li><a href="schedule.html"><i><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></i> Schedule</a></li>
+                <li><a href="settings.html"><i><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></i> Settings</a></li>
+</n>
+            </ul>
+        </div>
+
+        <!-- Main content section -->
+        <div class="main-content">
+            <!-- Profile Section -->
+            <div id="profile-section" class="section active">
+                <div class="profile-header">
+                    <img src="https://img.freepik.com/free-vector/farmer-using-technology-digital-agriculture_53876-113813.jpg" alt="Farmer Profile Picture">
+                    <h1 id="profile-name">Intense Hexaveres</h1>
+                </div>
+                <div class="profile-details">
+                    <h2>Profile Details</h2>
+                    <div class="form-group">
+                        <label for="profile-age">Age</label>
+                        <input type="text" id="profile-age" value="45" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-email">Email</label>
+                        <input type="email" id="profile-email" value="intensehexaveres@gmail.com" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-contact">Contact Number</label>
+                        <input type="tel" id="profile-contact" value="91-9342180160" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-user-id">User ID</label>
+                        <input type="text" id="profile-user-id" value="IH2005" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-cultivation-details">Cultivation Details</label>
+                        <textarea id="profile-cultivation-details" rows="4" readonly>APPLE - ALMOND - GUVA</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-turnover">Turnover</label>
+                        <input type="text" id="profile-turnover" value="Rs.500,000" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-location">Location</label>
+                        <input type="text" id="profile-location" value="Himarchal Pradesh , India" readonly>
+                    </div>
+                    <button class="button" id="edit-profile-button">Edit Profile</button>
+                </div>
+            </div>
+
+            <!-- Edit Profile Section -->
+            <div id="edit-profile-section" class="section">
+                <div class="profile-header edit">
+                    <img src="https://img.freepik.com/free-vector/farmer-using-technology-digital-agriculture_53876-113813.jpg" alt="Farmer Profile Picture">
+                    <h1>Edit Profile</h1>
+                </div>
+                <div class="profile-details edit">
+                    <h2>Edit Profile Details</h2>
+                    <div class="form-group">
+                        <label for="edit-profile-name">Name</label>
+                        <input type="text" id="edit-profile-name" value="Intense Hexaveres">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-profile-age">Age</label>
+                        <input type="text" id="edit-profile-age" value="45">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-profile-email">Email</label>
+                        <input type="email" id="edit-profile-email" value="intensehexaveres@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-profile-contact">Contact Number</label>
+                        <input type="tel" id="edit-profile-contact" value="91-9342180160">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-profile-user-id">User ID</label>
+                        <input type="text" id="edit-profile-user-id" value="IH2005">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-profile-cultivation-details">Cultivation Details</label>
+                        <textarea id="edit-profile-cultivation-details" rows="4">APPLE - ALMOND - GUVA</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-profile-turnover">Turnover</label>
+                        <input type="text" id="edit-profile-turnover" value="Rs.500,000">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-profile-location">Location</label>
+                        <input type="text" id="edit-profile-location" value="Himarchal Pradesh , India">
+                    </div>
+                    <div class="button-group">
+                        <button class="button" id="save-profile-button">Save</button>
+                        <button class="button" id="cancel-edit-button">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between profile and edit profile sections
+        document.getElementById('edit-profile-button').addEventListener('click', function() {
+            document.getElementById('profile-section').classList.remove('active');
+            document.getElementById('edit-profile-section').classList.add('active');
+        });
+
+        document.getElementById('cancel-edit-button').addEventListener('click', function() {
+            document.getElementById('edit-profile-section').classList.remove('active');
+            document.getElementById('profile-section').classList.add('active');
+        });
+
+        // Implement save functionality
+        document.getElementById('save-profile-button').addEventListener('click', function() {
+            // Get values from edit fields
+            var name = document.getElementById('edit-profile-name').value;
+            var age = document.getElementById('edit-profile-age').value;
+            var email = document.getElementById('edit-profile-email').value;
+            var contact = document.getElementById('edit-profile-contact').value;
+            var userId = document.getElementById('edit-profile-user-id').value;
+            var cultivationDetails = document.getElementById('edit-profile-cultivation-details').value;
+            var turnover = document.getElementById('edit-profile-turnover').value;
+            var location = document.getElementById('edit-profile-location').value;
+
+            // Set values to profile fields
+            document.getElementById('profile-name').textContent = name;
+            document.getElementById('profile-age').value = age;
+            document.getElementById('profile-email').value = email;
+            document.getElementById('profile-contact').value = contact;
+            document.getElementById('profile-user-id').value = userId;
+            document.getElementById('profile-cultivation-details').value = cultivationDetails;
+            document.getElementById('profile-turnover').value = turnover;
+            document.getElementById('profile-location').value = location;
+
+            // Switch back to profile section
+            document.getElementById('edit-profile-section').classList.remove('active');
+            document.getElementById('profile-section').classList.add('active');
+        });
+    </script>
+</body>
+</html>
